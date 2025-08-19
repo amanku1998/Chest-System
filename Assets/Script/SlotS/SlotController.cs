@@ -4,10 +4,10 @@ public class SlotController
 {
     private SlotView slotView;
 
-    public SlotController(SlotView slotPrefab, Transform slotTransform)
+    public SlotController(SlotView slotPrefab, Transform slotContentTransform)
     {
-        slotView = Object.Instantiate(slotPrefab, slotTransform);
-        slotView.transform.SetParent(slotTransform);
+        slotView = Object.Instantiate(slotPrefab, slotContentTransform);
+        slotView.transform.SetParent(slotContentTransform);
         slotView.SetSlotController(this);
     }
 }
