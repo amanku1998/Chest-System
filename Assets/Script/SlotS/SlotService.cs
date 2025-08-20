@@ -19,4 +19,9 @@ public class SlotService
             slotList.Add(slotController);
         }
     }
+
+    public SlotController GetSlotController(int slotIndex)
+    {
+        return slotList[slotIndex];
+    }
 }

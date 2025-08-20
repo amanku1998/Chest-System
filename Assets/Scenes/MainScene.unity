@@ -1120,6 +1120,19 @@ MonoBehaviour:
   totalNoOfSlots: 4
   slotContentTransform: {fileID: 1890389864}
   emptySlotPrefab: {fileID: -8284889379693931065, guid: ddaddb200a7c8404b9df29b44b031868, type: 3}
+  chestPrefabDataList:
+  - chestType: 0
+    chestScriptable: {fileID: 11400000, guid: 5237e1ed033dcd54fadfdc18f4376aae, type: 2}
+    chestPrefab: {fileID: -888753874602812028, guid: 0dd5140791559b24da8c196b3d30d5a3, type: 3}
+  - chestType: 1
+    chestScriptable: {fileID: 11400000, guid: 993c101b46be124418f43d0ecf1ba7cd, type: 2}
+    chestPrefab: {fileID: 5989150565091079594, guid: 9a47249cae137984ead929a0dd0f0f00, type: 3}
+  - chestType: 2
+    chestScriptable: {fileID: 11400000, guid: e5d65ff5f07d186439e624a22207a295, type: 2}
+    chestPrefab: {fileID: 6576269663134232489, guid: 0fa8888238b27ad40a568ba9c9f33ac6, type: 3}
+  - chestType: 3
+    chestScriptable: {fileID: 11400000, guid: bdc7efd737afd344ca6161c29dada166, type: 2}
+    chestPrefab: {fileID: 459527758934654685, guid: a925d4191468eb343981b7f8d223adbe, type: 3}
 --- !u!1 &1699154571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,7 +1365,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1762260642}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1491383887}
+        m_TargetAssemblyTypeName: GameService, Assembly-CSharp
+        m_MethodName: CreateChest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1762260642
 MonoBehaviour:
   m_ObjectHideFlags: 0

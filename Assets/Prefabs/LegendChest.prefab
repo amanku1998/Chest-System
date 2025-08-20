@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5551677461746977452}
   - component: {fileID: 9176285087869452483}
+  - component: {fileID: 459527758934654685}
   m_Layer: 5
   m_Name: LegendChest
   m_TagString: Untagged
@@ -60,6 +61,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &459527758934654685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699770865753441837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 294a975eae628bf44b161bc82e98abf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chestAnim: {fileID: 9176285087869452483}
 --- !u!1 &2127477521532870464
 GameObject:
   m_ObjectHideFlags: 0
