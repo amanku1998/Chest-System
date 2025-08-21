@@ -29,5 +29,9 @@ public class ChestController
     public ChestModel GetChestModel() => chestModel;
     public SlotController GetSlotController() => slotController;
 
-
+    public void OpenChest()
+    {
+        chestView.GetChestAnimator().enabled = true;
+        chestModel.GetChestReward();
+    }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class SlotService
 {
     private List<SlotController> slotList = new List<SlotController>();
+    private SlotController unlockingSlot;
 
     public SlotService(SlotView slotPrefab, int totalNoOfSlots, Transform slotContentTransform)
     {
@@ -20,8 +21,7 @@ public class SlotService
         }
     }
 
-    public SlotController GetSlotController(int slotIndex)
-    {
-        return slotList[slotIndex];
-    }
+    public SlotController GetSlotController(int slotIndex) => slotList[slotIndex];   
+    public int GetSlotIndex(SlotController SlotController) => slotList.IndexOf(SlotController);
+    public void SetUnlockingSlot(SlotController slotController) => unlockingSlot = slotController;
 }

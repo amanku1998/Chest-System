@@ -17,5 +17,12 @@ public class ChestModel
 
     public void SetChestState(ChestState chestState) => this.chestState = chestState;
 
+    public void GetChestReward()
+    {
+        int coins = Random.Range(chestScriptable.minCoin, chestScriptable.maxCoin + 1);
+        int gems = Random.Range(chestScriptable.minGem, chestScriptable.maxGem + 1);
 
+        GameService.Instance.GetCurrencyHandler.AddCoins(coins);
+        GameService.Instance.GetCurrencyHandler.AddGems(gems);
+    }
 }

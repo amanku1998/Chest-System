@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class GameService : GenericMonoSingleton<GameService>
 {
@@ -14,15 +15,20 @@ public class GameService : GenericMonoSingleton<GameService>
 
     private SlotService slotService;
     private ChestService chestService;
+    private CurrencyHandler currencyHandler;
 
     // Start is called before the first frame update
     void Start()
     {
         slotService = new SlotService(emptySlotPrefab, totalNoOfSlots, slotContentTransform);
         chestService = new ChestService();
+        currencyHandler = new CurrencyHandler(coinsText, gemsText);
+
     }
 
     public SlotService GetSlotService { get { return slotService; } }
+    public ChestService GetChestService { get { return chestService; } }
+    public CurrencyHandler GetCurrencyHandler { get { return currencyHandler; } }
 
     public int GetSlotCount() => totalNoOfSlots;
 
