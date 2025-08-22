@@ -22,4 +22,9 @@ public class ChestView : MonoBehaviour
         return chestAnim;
     }
 
+    private void OnDestroy()
+    {
+        chestController.GetSlotController().ResetSlot();
+    }
+
 }

@@ -72,8 +72,27 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler , IPointerExitHandle
     {
         openChestText.enabled = false;
         displayChestData.gameObject.SetActive(false);
-        //undoButton.gameObject.SetActive(false);
+        //undoButton.gameObject.SetActive();
         DestroyChest();
+    }
+
+    public void UnlockChestByGems()
+    {
+        timerController.gameObject.SetActive(false);
+        unlockChestByGem.gameObject.SetActive(false);
+        timeToUnlockText.enabled = false;
+        lockedChestText.enabled = false;
+        openChestText.enabled = true;
+        //undoButton.gameObject.SetActive(true);
+    }
+
+    public void UnlockChest()
+    {
+        timerController.gameObject.SetActive(false);
+        unlockChestByGem.gameObject.SetActive(false);
+        timeToUnlockText.enabled = false;
+        lockedChestText.enabled = false;
+        openChestText.enabled = true;
     }
 
     public void SetSlotInfo(ChestController chestController)
@@ -87,6 +106,7 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler , IPointerExitHandle
     {
         Destroy(slotController.chestController.GetChestView().gameObject, 2);
         int slotIndex = GameService.Instance.GetSlotService.GetSlotIndex(slotController);
+        //Debug.Log("slotIndex :" + slotIndex);
         //GameService.Instance.GetChestService.DeleteChestSavedData(slotIndex);
     }
 }

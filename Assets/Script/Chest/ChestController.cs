@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class ChestController
@@ -14,7 +13,7 @@ public class ChestController
         Transform slotTransform = slotController.GetSlotView().transform;
 
         chestView = GameObject.Instantiate(chestPrefab, slotTransform);
-        chestView.transform.SetAsLastSibling();
+        chestView.transform.SetAsFirstSibling();
 
         Vector3 pos = chestView.transform.localPosition;
         pos.y -= 78f;  

@@ -21,7 +21,10 @@ public class SlotService
         }
     }
 
+    public SlotController GetUnlockingSlot() => unlockingSlot;
     public SlotController GetSlotController(int slotIndex) => slotList[slotIndex];   
     public int GetSlotIndex(SlotController SlotController) => slotList.IndexOf(SlotController);
     public void SetUnlockingSlot(SlotController slotController) => unlockingSlot = slotController;
+
+
 }

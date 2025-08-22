@@ -20,7 +20,15 @@ public class SlotController
     public void SetChestInfoInSlot(ChestController chestController)
     {
         this.chestController = chestController;
+        timeNeededToUnlockChest = chestController.GetChestModel().GetUnlockingTimeInSec();
         slotView.SetSlotInfo(chestController);
+    }
+
+    public void UnlockChest()
+    {
+        SetChestState(ChestState.Unlocked);
+        slotView.UnlockChest();
+        GameService.Instance.GetSlotService.SetUnlockingSlot(null);
     }
 
     public bool IsSlotEmpty()
@@ -38,29 +46,32 @@ public class SlotController
         }
         else if (GetChestState() == ChestState.Unlocking)
         {
-            //UnlockChestByGem();
+            UnlockChestByGem();
         }
         else if (GetChestState() == ChestState.Locked)
         {
-            //if (GetUnlockingSlot() == null)
-            //{
-            //    OpenChestUnlockPopup();
-            //}
-            //else
-            //{
-            //    GameService.Instance.EventService.OnFailedString.InvokeEvent(FailedStringType.UnlockedChestFailed);
-            //}
+            if (GetUnlockingSlot() == null)
+            {
+                OpenChestUnlockPopup();
+            }
+            else
+            {
+                GameService.Instance.GetEventService.OnFailedUnlock.InvokeEvent(FailedStringType.UnlockedChestFailed);
+            }
         }
     }
 
-    //public int GetGemCountByTime()
-    //{
-    //    if (GetChestState() == ChestState.Unlocking)
-    //    {
-    //        float time = slotView.timerController.GetTime();
-    //        return Mathf.CeilToInt(time / 10);
-    //    }
-    //}
+    private void OpenChestUnlockPopup()
+    {
+        GameService.Instance.OpenUnlockChestPopup();
+        GameService.Instance.GetEventService.OnSlotSelect.InvokeEvent(this);
+    }
+
+    public SlotController GetUnlockingSlot()
+    {
+        return GameService.Instance.GetSlotService.GetUnlockingSlot();
+    }
+
     public void SetChestState(ChestState chestState)
     {
         chestController.GetChestModel().SetChestState(chestState);
@@ -86,7 +97,13 @@ public class SlotController
             return Mathf.CeilToInt(time / 10);
         }
 
-        return Mathf.CeilToInt((timeNeededToUnlockChest / 60) / 10); ;
+        return Mathf.CeilToInt((timeNeededToUnlockChest / 60) / 10);
+    }
+
+    public void ResetSlot()
+    {
+        chestController = null;
+        timeNeededToUnlockChest = 0;
     }
 
     public void StartTimerForUnlockChest()
@@ -94,5 +111,24 @@ public class SlotController
         slotView.StartTimer(timeNeededToUnlockChest);
         SetChestState(ChestState.Unlocking);
         SetUnlockingSlot();
+    }
+
+    public void UnlockChestByGem()
+    {
+        int gemsNeededToUnlockChest = GetGemCountByTime();
+
+        if (gemsNeededToUnlockChest <= GameService.Instance.GetCurrencyHandler.GetGems())
+        {
+            GameService.Instance.GetCurrencyHandler.SpendGems(gemsNeededToUnlockChest);
+            SetChestState(ChestState.Unlocked);
+            slotView.UnlockChestByGems();
+            GameService.Instance.GetSlotService.SetUnlockingSlot(null);
+            int slotIndex = GameService.Instance.GetSlotService.GetSlotIndex(this);
+            //GameService.Instance.GetChestService.SetChestSavedData();
+        }
+        else
+        {
+            GameService.Instance.GetEventService.OnFailedUnlock.InvokeEvent(FailedStringType.UnlockedChestByGemFailed);
+        }
     }
 }

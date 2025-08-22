@@ -17,4 +17,4 @@ MonoBehaviour:
   maxCoin: 200
   minGem: 10
   maxGem: 20
-  timeInMin: 6
+  timeInMin: 1

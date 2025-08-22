@@ -1919,4 +1919,5 @@ MonoBehaviour:
   lockedChestText: {fileID: 760063409132697482}
   timeToUnlockText: {fileID: 4679085589268736641}
   displayChestData: {fileID: 1009260382168667710}
-  UnlockChestByGem: {fileID: 645611375577563850}
+  unlockChestByGem: {fileID: 645611375577563850}
+  timerController: {fileID: 3623962765581967903}

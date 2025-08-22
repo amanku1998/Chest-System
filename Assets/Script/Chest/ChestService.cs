@@ -13,6 +13,8 @@ public class ChestService
 
     public void CreateChest()
     {
+        bool isChestCreated = false;
+
         for (int i = 0; i < GameService.Instance.GetSlotCount(); i++)
         {
             SlotController slotController = GameService.Instance.GetSlotService.GetSlotController(i);
@@ -20,12 +22,20 @@ public class ChestService
             if(slotController.IsSlotEmpty())
             {
                 ChestPrefabData chestData = GameService.Instance.GetChestPrefabData(i);
+
                 ChestModel chestModel = new ChestModel(chestData.chestScriptable);
                 ChestController chestController = new ChestController(chestData.chestPrefab, chestModel, slotController );
                 chestControllerList.Add(chestController);
                 slotController.SetChestInfoInSlot(chestController);
+
+                isChestCreated = true;
                 break;
             }
+        }
+
+        if (!isChestCreated)
+        {
+            GameService.Instance.GetEventService.OnFailedUnlock.InvokeEvent(FailedStringType.ChestFailed);
         }
     }
 }

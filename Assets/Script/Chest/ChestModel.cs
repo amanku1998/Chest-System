@@ -11,6 +11,7 @@ public class ChestModel
         this.chestState = chestState;
     }
 
+    public float GetUnlockingTimeInSec() => chestScriptable.timeInMin * 60;
     public ChestScriptable GetChestScriptableObjectInfo() => chestScriptable;
     
     public ChestState GetChestState() => chestState;

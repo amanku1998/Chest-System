@@ -36,6 +36,7 @@ public class TimerCountdownController : MonoBehaviour
         if (timeInSeconds <= 0)
         {
             Debug.Log("Unlocked Chest");
+            slotController.UnlockChest();
         }
 
         // Convert time in seconds to hours, minutes, and seconds
