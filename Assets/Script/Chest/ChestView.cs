@@ -1,0 +1,28 @@
+using UnityEngine;
+
+public class ChestView : MonoBehaviour
+{
+    [SerializeField] private Animator chestAnim;
+    private ChestController chestController;
+
+    void Start()
+    {
+        chestAnim.enabled = false;
+    }
+
+    public void SetChestController(ChestController chestController)
+    {
+        this.chestController = chestController;
+    }
+
+    public Animator GetChestAnimator()
+    {
+        return chestAnim;
+    }
+
+    private void OnDestroy()
+    {
+        chestController.GetSlotController().ResetSlot();
+    }
+
+}
