@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SlotView : MonoBehaviour, IPointerEnterHandler , IPointerExitHandler, IPointerClickHandler
 {
@@ -14,7 +13,7 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler , IPointerExitHandle
     public DisplayChestData displayChestData;
     public UnlockChestByGem unlockChestByGem;
     private SlotController slotController;
-
+    public Button undoButton;
     public TimerCountdownController timerController;
 
     public void SetSlotController(SlotController slotController)
@@ -29,7 +28,7 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler , IPointerExitHandle
 
         if(slotController.GetChestState() == ChestState.Unlocking)
         {
-            unlockChestByGem.UpdateGemCount(slotController.GetGemCountByTime());
+            unlockChestByGem.UpdateGemCount(slotController.GetGemCountByTime());    
             unlockChestByGem.gameObject.SetActive(true);
             displayChestData.gameObject.SetActive(true);
         }
@@ -41,6 +40,7 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler , IPointerExitHandle
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        slotController.SetCurrentUpdatedGemsRequiredToUnlockChest(slotController.GetGemCountByTime());
         slotController.OnPointerClick();
     }
 
@@ -72,7 +72,7 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler , IPointerExitHandle
     {
         openChestText.enabled = false;
         displayChestData.gameObject.SetActive(false);
-        //undoButton.gameObject.SetActive();
+        undoButton.gameObject.SetActive(false);
         DestroyChest();
     }
 
@@ -83,7 +83,7 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler , IPointerExitHandle
         timeToUnlockText.enabled = false;
         lockedChestText.enabled = false;
         openChestText.enabled = true;
-        //undoButton.gameObject.SetActive(true);
+        undoButton.gameObject.SetActive(true);
     }
 
     public void UnlockChest()
@@ -100,6 +100,40 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler , IPointerExitHandle
         emptySlotText.transform.SetAsFirstSibling();
         lockedChestText.enabled = true;
         displayChestData.SetRewardedChestData(chestController.GetChestModel().GetChestScriptableObjectInfo());
+        UpdateSlotTimeText();
+    }
+
+    public void ClickOnUndoButton()
+    {
+        slotController.UndoUnlockingChest();
+    }
+
+    public void UndoUnlocking()
+    {
+        timeToUnlockText.enabled = true;
+        lockedChestText.enabled = true;
+        openChestText.enabled = false;
+        undoButton.gameObject.SetActive(false);
+    }
+
+    public void UpdateSlotTimeText()
+    {
+        timeToUnlockText.enabled = true;
+        float totalSeconds = slotController.timeNeededToUnlockChest;
+
+        int hours = Mathf.FloorToInt(totalSeconds / 3600f);
+        int minutes = Mathf.CeilToInt((totalSeconds % 3600f) / 60f);
+
+        if (hours > 0)
+        {
+            // Show hours and minutes
+            timeToUnlockText.SetText($"{hours}Hrs{minutes}Min");
+        }
+        else
+        {
+            // Show only minutes
+            timeToUnlockText.SetText($"{minutes}Min");
+        }
     }
 
     public void DestroyChest()
@@ -107,6 +141,5 @@ public class SlotView : MonoBehaviour, IPointerEnterHandler , IPointerExitHandle
         Destroy(slotController.chestController.GetChestView().gameObject, 2);
         int slotIndex = GameService.Instance.GetSlotService.GetSlotIndex(slotController);
         //Debug.Log("slotIndex :" + slotIndex);
-        //GameService.Instance.GetChestService.DeleteChestSavedData(slotIndex);
     }
 }

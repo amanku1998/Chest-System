@@ -6,6 +6,8 @@ public class SlotController
     public ChestController chestController;
     public float timeNeededToUnlockChest;
 
+    private int currentUpdatedGemsRequiredToUnlockChest;
+
     public SlotController(SlotView slotPrefab, Transform slotTransform)
     {
         slotView = Object.Instantiate(slotPrefab, slotTransform);
@@ -100,6 +102,7 @@ public class SlotController
         return Mathf.CeilToInt((timeNeededToUnlockChest / 60) / 10);
     }
 
+
     public void ResetSlot()
     {
         chestController = null;
@@ -111,6 +114,24 @@ public class SlotController
         slotView.StartTimer(timeNeededToUnlockChest);
         SetChestState(ChestState.Unlocking);
         SetUnlockingSlot();
+    }
+    public void UndoUnlockingChest()
+    {
+        //GameService.Instance.GetCurrencyHandler.AddGems(GetGemCountByTime());
+        GameService.Instance.GetCurrencyHandler.AddGems(GetCurrentUpdatedGemsRequiredToUnlockChest());
+        SetChestState(ChestState.Locked);
+        slotView.UndoUnlocking();
+    }
+
+    public void SetCurrentUpdatedGemsRequiredToUnlockChest(int val)
+    {
+        currentUpdatedGemsRequiredToUnlockChest = val;
+        Debug.Log("currentUpdatedGemsRequiredToUnlockChest :"+ currentUpdatedGemsRequiredToUnlockChest);
+    }
+
+    public int GetCurrentUpdatedGemsRequiredToUnlockChest()
+    {
+        return currentUpdatedGemsRequiredToUnlockChest;
     }
 
     public void UnlockChestByGem()
@@ -124,7 +145,6 @@ public class SlotController
             slotView.UnlockChestByGems();
             GameService.Instance.GetSlotService.SetUnlockingSlot(null);
             int slotIndex = GameService.Instance.GetSlotService.GetSlotIndex(this);
-            //GameService.Instance.GetChestService.SetChestSavedData();
         }
         else
         {
