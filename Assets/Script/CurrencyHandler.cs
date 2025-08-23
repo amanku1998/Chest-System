@@ -38,8 +38,8 @@ public class CurrencyHandler
 
     public void UpdateCoins()
     {
-        PlayerPrefs.SetInt("Gem", gem);
-        gemText.SetText(gem.ToString());
+        PlayerPrefs.SetInt("Coin", coin);
+        coinText.SetText(coin.ToString());
     }
 
     public void AddGems(int value)
