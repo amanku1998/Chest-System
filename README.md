@@ -3,9 +3,11 @@ GamePlay Video link : https://mega.nz/file/FDFHTSqb#NhkBN6kd7o1d89Zcu6ZAS7nMAeW5
 Playable link : https://outscal.com/kuaman12020/game/play-chestsystem-game-1
 
 Game Description
+
 This is a dynamic, slot-and-chest-based casual game designed to keep players engaged with its rewarding mix of chance and strategy. Players interact with slots to unlock chests, earn valuable in-game currency (coins and gems), and experience smooth, event-driven gameplay.
 
 Core Systems & Architecture
+
 Service Locator Pattern:
 A centralized GameService acts as the access point for all major game systems. Built as a Singleton, it ensures consistent and efficient communication across the game.
 
