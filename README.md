@@ -12,8 +12,11 @@ Service Locator Pattern:
 A centralized GameService acts as the access point for all major game systems. Built as a Singleton, it ensures consistent and efficient communication across the game.
 
 • SlotService: Handles slot interactions, chest triggers, and slot-to-chest mappings.
+
 • ChestService: Controls chest states, unlock timers, and reward distribution.
+
 • EventService: Provides a flexible, event-driven structure using an observer-based system.
+
 • CurrencyHandler: Manages coin and gem updates with precise tracking.
 
 MVC (Model-View-Controller) Pattern:
